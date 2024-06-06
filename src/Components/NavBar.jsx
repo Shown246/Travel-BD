@@ -25,7 +25,7 @@ const NavBar = () => {
   };
 
   const activeStyle =
-    "text-white  text-lg underline underline-offset-8 font-semibold rounded-lg p-3 bg-flamingo";
+    "text-accentGold text-lg underline underline-offset-8 font-semibold rounded-lg p-3 bg-flamingo";
   const navLists = (
     <>
       <li className="mb-3 un lg:mb-0">
@@ -100,7 +100,7 @@ const NavBar = () => {
                 onClick={() => navigate("/")}
                 className="text-3xl text-white font-bold hidden lg:block animate__animated animate__fadeIn duration-300"
               >
-                Academia<span className="text-flamingo">Lib</span>
+                Travel<span className="text-flamingo">BD</span>
               </button>
             </div>
             <div className="flex lg:justify-between justify-end w-full">

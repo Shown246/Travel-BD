@@ -40,7 +40,7 @@ const Card = ({ card }) => {
   const navigate = useNavigate();
   const { _id, image, book_name, author_name, category_name, rating } = card;
   return (
-    <div className="rounded-lg shadow-lg shadow-tarawera overflow-hidden">
+    <div className="rounded-lg shadow-lg shadow-accentGold overflow-hidden">
       <img src={image} alt={book_name} className="w-full h-64 object-cover" />
       <div className="p-4">
         <h3 className="text-2xl font-semibold mb-2">{book_name}</h3>

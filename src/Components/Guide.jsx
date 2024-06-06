@@ -17,6 +17,12 @@ const cardsData = [
     tripTitle: 'Dhaka City Tour',
     price: '100 USD'
   },
+  {
+    photo: 'https://example.com/photo2.jpg',
+    tourType: 'Cultural',
+    tripTitle: 'Dhaka City Tour',
+    price: '100 USD'
+  },
   // Add more card data here
 ];
 

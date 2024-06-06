@@ -12,9 +12,9 @@ const Footer = () => {
             Providing the best quality of books for you.
           </p>
           <div className="grid grid-flow-col my-4 gap-6">
-            <a className="text-tarawera" href="https://twitter.com/"><FaXTwitter  size={30} /></a>
-            <a className="text-tarawera" href="https://www.youtube.com/"><FaYoutube  size={30} /></a>
-            <a className="text-tarawera" href="https://www.facebook.com/"><FaFacebook  size={30} /></a>
+            <a className="text-accentGold" href="https://twitter.com/"><FaXTwitter  size={30} /></a>
+            <a className="text-accentGold" href="https://www.youtube.com/"><FaYoutube  size={30} /></a>
+            <a className="text-accentGold" href="https://www.facebook.com/"><FaFacebook  size={30} /></a>
           </div>
           <p className="text-sm">Copyright © 2024 - All right reserved</p>
         </aside>

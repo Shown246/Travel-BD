@@ -125,7 +125,7 @@ const Details = () => {
             </p>
             <button
               disabled={book.quantity === 0}
-              className="px-4 py-2 bg-tarawera text-white rounded-md hover:bg-flamingo disabled:bg-gray-400 disabled:text-gray-600 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-accentGold text-white rounded-md hover:bg-flamingo disabled:bg-gray-400 disabled:text-gray-600 disabled:cursor-not-allowed"
               onClick={(e) => {
                 handleQuantity(e);
               }}
@@ -174,7 +174,7 @@ const Details = () => {
             </div>
             <button
               onClick={onCloseModal}
-              className="px-4 py-2 bg-tarawera text-white rounded-md hover:bg-flamingo"
+              className="px-4 py-2 bg-accentGold text-white rounded-md hover:bg-flamingo"
             >
               Submit
             </button>

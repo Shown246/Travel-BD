@@ -2,12 +2,8 @@ import LogIn from "./Components/LogIn";
 import Root from "./Components/Root";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./Components/SignUp";
-import AddBook from "./Components/AddBook";
 import ProtectedRoute from "./Components/ProtectedRoute";
-import Borrowed from "./Components/Borrowed";
-import AllBooks from "./Components/AllBooks";
 import Home from "./Components/Home";
-import Update from "./Components/Update";
 import Details from "./Components/Details";
 import Categories from "./Components/Categories";
 import Error from "./Error";
@@ -42,16 +38,16 @@ const Router = () => {
         },
         {
           path: "/addBook",
-          element: <ProtectedRoute><AddBook/></ProtectedRoute>,
+          element: <ProtectedRoute></ProtectedRoute>,
         },
         {
           path: "/borrowed",
-          element: <ProtectedRoute><Borrowed/></ProtectedRoute>,
+          element: <ProtectedRoute></ProtectedRoute>,
           loader: fetchCrafts,
         },
         {
           path: "/update/:id",
-          element: <ProtectedRoute><Update/></ProtectedRoute>,
+          element: <ProtectedRoute></ProtectedRoute>,
           loader: async ({ params }) => {
             return axios.get(`https://ph-assignment11-server.vercel.app/book/${params.id}`).then((res) => res.data);
           },
@@ -69,7 +65,7 @@ const Router = () => {
         },
         {
           path: "/allBooks",
-          element: <ProtectedRoute><AllBooks/></ProtectedRoute>
+          element: <ProtectedRoute></ProtectedRoute>
         },
       ],
     },

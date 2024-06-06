@@ -8,9 +8,9 @@ module.exports = withMT({
     extend: {
       colors: {
         teal: "#00292C",
-        tarawera: "#073c45",
-        genoa: "#167375",
-        flamingo: "#EF4936",
+        tarawera: "#006a4e",
+        genoa: "#006a4e",
+        flamingo: "#F42A41",
         river: "#43525B",
       },
     },

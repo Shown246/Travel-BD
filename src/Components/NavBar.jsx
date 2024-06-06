@@ -98,14 +98,14 @@ const NavBar = () => {
               </div>
               <button
                 onClick={() => navigate("/")}
-                className="text-3xl text-teal font-bold hidden lg:block animate__animated animate__fadeIn duration-300"
+                className="text-3xl text-white font-bold hidden lg:block animate__animated animate__fadeIn duration-300"
               >
                 Academia<span className="text-flamingo">Lib</span>
               </button>
             </div>
             <div className="flex lg:justify-between justify-end w-full">
               <div className="navbar-center hidden lg:flex">
-                <ul className="menu-horizontal px-1 space-x-5 text-teal">
+                <ul className="menu-horizontal px-1 space-x-5 text-white">
                   {navLists}
                 </ul>
               </div>

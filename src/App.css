@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@layer components {
+  .container90 {
+    @apply mx-auto max-w-[90%];
+  }
+  .org-btn{
+    @apply hover:text-flamingo hover:bg-tarawera text-white lg:font-semibold bg-flamingo lg:text-lg text-xs px-4 py-2 rounded-lg shadow-md;
+  }
+}
+@tailwind utilities;

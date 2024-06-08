@@ -41,7 +41,7 @@ const NavBar = () => {
           to="/allBooks"
           className={({ isActive }) => (isActive ? activeStyle : "p-3")}
         >
-          All Books
+          Community
         </NavLink>
       </li>
       <li className="mb-3 lg:mb-0">
@@ -49,7 +49,7 @@ const NavBar = () => {
           to="/addBook"
           className={({ isActive }) => (isActive ? activeStyle : "p-3")}
         >
-          Add Book
+          Blogs
         </NavLink>
       </li>
       <li className="mb-3 lg:mb-0">
@@ -57,7 +57,15 @@ const NavBar = () => {
           to="/borrowed"
           className={({ isActive }) => (isActive ? activeStyle : "p-3")}
         >
-          Borrowed Books
+          About Us
+        </NavLink>
+      </li>
+      <li className="mb-3 lg:mb-0">
+        <NavLink
+          to="/borrowed"
+          className={({ isActive }) => (isActive ? activeStyle : "p-3")}
+        >
+          Contact Us
         </NavLink>
       </li>
     </>

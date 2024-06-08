@@ -12,21 +12,15 @@ import axios from "axios";
 
 const Router = () => {
 
-  const fetchCrafts = () => {
-    return fetch("https://ph-assignment10-server-omega.vercel.app/crafts").then((res) => res.json());
-  }
-
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Root />,
       errorElement: <Error/>,
-      loader: () => fetch("https://ph-assignment10-server-omega.vercel.app/crafts").then((res) => res.json()),
       children: [
         {
           path: "/",
           element: <Home/>,
-          loader: fetchCrafts,
         },
         {
           path: "/logIn",
@@ -43,7 +37,6 @@ const Router = () => {
         {
           path: "/borrowed",
           element: <ProtectedRoute></ProtectedRoute>,
-          loader: fetchCrafts,
         },
         {
           path: "/update/:id",

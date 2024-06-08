@@ -113,35 +113,45 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = auth.onAuthStateChanged((currentUser) => {
       const loggedUser = { email: currentUser?.email || user?.email };
-      setUser(currentUser);
+      axios
+        .get(`http://localhost:5000/userRole?email=${loggedUser.email}`)
+        .then((res) => {
+          const role = res.data;
+          const updatedUser = { ...currentUser, role: role };
+          setUser(updatedUser);
+        });
+
       if (currentUser) {
         axios
-        .post("https://ph-assignment11-server.vercel.app/jwt", loggedUser, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      }
-      else{
+          .post("https://ph-assignment11-server.vercel.app/jwt", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
         axios
-        .post("https://ph-assignment11-server.vercel.app/logout", loggedUser, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+          .post(
+            "https://ph-assignment11-server.vercel.app/logout",
+            loggedUser,
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
       setLoading(false);
     });
     return unSubscribe;
-  }, [ user?.email ]);
+  }, [user?.email]);
 
   const authInfo = {
     loading,

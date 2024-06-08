@@ -10,7 +10,7 @@ const PackageCard = ({ photo, tourType, tripTitle, price }) => {
   }
   return (
     <>
-      <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+      <div className="max-w-md rounded overflow-hidden shadow-xl">
       <div className="relative">
         <img className="w-full h-48 object-cover" src={photo} alt={tripTitle} />
         <button onClick={toggleWishlist} className="absolute top-2 right-2 text-2xl text-red-500">

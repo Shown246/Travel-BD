@@ -3,6 +3,11 @@ import { AuthContext } from "../AuthContextProvider";
 import { useContext, useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { FcGoogle } from "react-icons/fc";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,17 +20,23 @@ const SignUp = () => {
     const photoURL = e.target.photoURL.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const newUser = { name, email, password };
+    const newUser = { name,photoURL, role, email, password };
     console.log(newUser);
-    SignUpUser(name, photoURL ,email, password)
-    .then((user) => {
-      if (user !== null) {
-        navigate("/");
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    SignUpUser(name, photoURL, email, password)
+      .then((user) => {
+        if (user !== null) {
+          axios.post("http://localhost:5000/users", newUser)
+          .then(() => {
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   const handleToggle = () => {
     if (type === "password") {
@@ -35,6 +46,11 @@ const SignUp = () => {
       setIcon(false);
       setType("password");
     }
+  };
+  const [role, setRole] = useState("");
+
+  const handleRole = (event) => {
+    setRole(event.target.value);
   };
   return (
     <>
@@ -97,6 +113,21 @@ const SignUp = () => {
                   Photo URL
                 </label>
               </div>
+              <div>
+                <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+                  <InputLabel id="demo-select-small-label">Join as</InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    value={role}
+                    label="Role"
+                    onChange={handleRole}
+                  >
+                    <MenuItem value="Tourist">Tourist</MenuItem>
+                    <MenuItem value="Guide">Tour Guide</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
               <div className="relative z-0">
                 <input
                   type="email"
@@ -137,7 +168,10 @@ const SignUp = () => {
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>
                 Already have an account?{" "}
-                <Link to="/login" className="text-flamingo hover:underline font-semibold">
+                <Link
+                  to="/login"
+                  className="text-flamingo hover:underline font-semibold"
+                >
                   Log in
                 </Link>
               </p>

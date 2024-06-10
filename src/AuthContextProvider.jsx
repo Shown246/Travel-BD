@@ -16,7 +16,10 @@ import axios from "axios";
 
 export const AuthContext = createContext(null);
 const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
   const [loading, setLoading] = useState(true);
 
   // Password Validation
@@ -111,47 +114,30 @@ const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unSubscribe = auth.onAuthStateChanged((currentUser) => {
-      const loggedUser = { email: currentUser?.email || user?.email };
-      axios
-        .get(`http://localhost:5000/userRole?email=${loggedUser.email}`)
-        .then((res) => {
-          const role = res.data;
-          const updatedUser = { ...currentUser, role: role };
-          setUser(updatedUser);
-        });
-
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       if (currentUser) {
-        axios
-          .post("https://ph-assignment11-server.vercel.app/jwt", loggedUser, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        try {
+          const email = currentUser.email;
+          const roleResponse = await axios.get(`http://localhost:5000/userRole?email=${email}`);
+          const role = roleResponse.data;
+          
+          const updatedUser = { ...currentUser, role };
+          setUser(updatedUser);
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+          
+          await axios.post("http://localhost:5000/jwt", { email }, { withCredentials: true });
+        } catch (error) {
+          console.error('Error during authentication state change:', error);
+        }
       } else {
-        axios
-          .post(
-            "https://ph-assignment11-server.vercel.app/logout",
-            loggedUser,
-            {
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        setUser(null);
+        localStorage.removeItem('user');
       }
       setLoading(false);
     });
-    return unSubscribe;
-  }, [user?.email]);
+
+    return () => unsubscribe();
+  }, []);
 
   const authInfo = {
     loading,

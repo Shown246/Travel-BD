@@ -1,4 +1,5 @@
 import daisyui from "daisyui";
+import 'flowbite';
 const withMT = require("@material-tailwind/react/utils/withMT");
 /** @type {import('tailwindcss').Config} */
 module.exports = withMT({
@@ -15,7 +16,7 @@ module.exports = withMT({
       },
     },
   },
-  plugins: [daisyui],
+  plugins: [daisyui , 'flowbite/plugin'],
   daisyui: {
     themes: [
       "light"],

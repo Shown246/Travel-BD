@@ -4,61 +4,49 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./Components/SignUp";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Home from "./Components/Home";
-import Details from "./Components/Details";
-import Categories from "./Components/Categories";
 import Error from "./Error";
-import axios from "axios";
-
+import Dashboard from "./Components/Dashboard";
+import GuideProfile from "./Components/GuideProfile";
+import AssignedTours from "./Components/AssignedTours";
 
 const Router = () => {
-
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Root />,
-      errorElement: <Error/>,
+      errorElement: <Error />,
       children: [
         {
           path: "/",
-          element: <Home/>,
+          element: <Home />,
         },
         {
           path: "/logIn",
-          element: <LogIn/>,
+          element: <LogIn />,
         },
         {
           path: "/signUp",
-          element: <SignUp/>,
+          element: <SignUp />,
+        },
+      ],
+    },
+    {
+      path: "/dashboard",
+      element: (
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: "/dashboard/profile",
+          element: <ProtectedRoute><GuideProfile /></ProtectedRoute>
+            
         },
         {
-          path: "/addBook",
-          element: <ProtectedRoute></ProtectedRoute>,
-        },
-        {
-          path: "/borrowed",
-          element: <ProtectedRoute></ProtectedRoute>,
-        },
-        {
-          path: "/update/:id",
-          element: <ProtectedRoute></ProtectedRoute>,
-          loader: async ({ params }) => {
-            return axios.get(`https://ph-assignment11-server.vercel.app/book/${params.id}`).then((res) => res.data);
-          },
-        },
-        {
-          path: "/details/:id",
-          element: <ProtectedRoute><Details/></ProtectedRoute>
-        },
-        {
-          path: "/categories/:id",
-          element: <ProtectedRoute><Categories/></ProtectedRoute>,
-          loader: async ({ params }) => {
-            return axios.get(`https://ph-assignment11-server.vercel.app/category/${params.id}`).then((res) => res.data);
-          },   
-        },
-        {
-          path: "/allBooks",
-          element: <ProtectedRoute></ProtectedRoute>
+          path: "/dashboard/tours",
+          element: <ProtectedRoute><AssignedTours/></ProtectedRoute>
+            
         },
       ],
     },

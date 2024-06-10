@@ -21,7 +21,6 @@ const SignUp = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const newUser = { name,photoURL, role, email, password };
-    console.log(newUser);
     SignUpUser(name, photoURL, email, password)
       .then((user) => {
         if (user !== null) {

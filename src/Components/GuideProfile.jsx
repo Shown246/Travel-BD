@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthContextProvider";
 import { MdOutlineSaveAs, MdOutlineModeEdit } from "react-icons/md";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const GuideProfile = () => {
   const { user } = useContext(AuthContext);
@@ -9,12 +11,22 @@ const GuideProfile = () => {
     setIsEditing(true);
   };
   const handleSaveClick = () => {
-    setIsEditing(false);
     const updatedData = {
-      eduData, sklData, expData, phnData
+      email: user.email,
+      eduData,
+      sklData,
+      expData,
+      phnData,
     };
-    console.log(updatedData);
-    // Here you can also add code to save the updated eduData, e.g., make an API call
+    axios
+      .post("http://localhost:5000/guide/profile", updatedData, {withCredentials: true})
+      .then(() => {
+        setIsEditing(false);
+        toast.success("Changes saved successfully");
+      })
+      .then((err) => {
+        console.log(err);
+      });
   };
 
   const [eduData, setEduData] = useState("Hiji Biji");
@@ -153,25 +165,24 @@ const GuideProfile = () => {
         </div>
         <div className="flex gap-12 pl-10">
           <button
-          onClick={handleEditClick}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-4  pr-6 rounded-xl flex items-center gap-1"
-        >
-          <span>
-            <MdOutlineModeEdit size={25} />
-          </span>
-          Edit
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl flex items-center gap-1"
-          onClick={handleSaveClick}
-        >
-          <span>
-            <MdOutlineSaveAs size={30} />
-          </span>
-          Save
-        </button>
+            onClick={handleEditClick}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-4  pr-6 rounded-xl flex items-center gap-1"
+          >
+            <span>
+              <MdOutlineModeEdit size={25} />
+            </span>
+            Edit
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl flex items-center gap-1"
+            onClick={handleSaveClick}
+          >
+            <span>
+              <MdOutlineSaveAs size={30} />
+            </span>
+            Save
+          </button>
         </div>
-        
       </div>
     </div>
   );

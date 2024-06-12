@@ -5,7 +5,6 @@ import { AuthContext } from "../AuthContextProvider";
 const GuideSide = () => {
   const navigate = useNavigate();
   const { user, LogOutUser } = useContext(AuthContext);
-  console.log(user);
   const activeStyle =
     "flex items-center p-2 rounded-lg  bg-flamingo text-accentGold dark:hover:bg-gray-700 group";
   const navLists = (
@@ -95,7 +94,7 @@ const GuideSide = () => {
             </li>
           </ul>
           <div className="flex items-center gap-4">
-            <img src={user.photoURL} alt={user.displayName} />
+            <img src={user.photoURL} alt={user.displayName} className="h-20 object-cover" />
             <p className="text-white">{user.displayName}</p>
           </div>
         </div>

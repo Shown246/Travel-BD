@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthContextProvider";
 
 const TouristSide = () => {
+  console.log("It renders TouristSide");
   const navigate = useNavigate();
   const { user, LogOutUser } = useContext(AuthContext);
   console.log(user);

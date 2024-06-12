@@ -1,5 +1,4 @@
 import Banner from "./Banner"
-import FeaturedBooks from "./FeaturedBooks";
 import Guide from "./Guide";
 import TourTypes from "./TourTypes";
 
@@ -9,7 +8,6 @@ const Home = () => {
       <Banner/>
       <Guide/>
       <TourTypes/>
-      <FeaturedBooks/>
     </div>
   )
 }

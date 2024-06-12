@@ -20,7 +20,7 @@ const AuthContextProvider = ({ children }) => {
     const storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // Password Validation
   const validatePassword = (password) => {
@@ -115,6 +115,7 @@ const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      const loggedUser = { email: currentUser?.email || user?.email };
       if (currentUser) {
         try {
           const email = currentUser.email;
@@ -125,11 +126,12 @@ const AuthContextProvider = ({ children }) => {
           setUser(updatedUser);
           localStorage.setItem('user', JSON.stringify(updatedUser));
           
-          await axios.post("http://localhost:5000/jwt", { email }, { withCredentials: true });
+          await axios.post("http://localhost:5000/jwt", loggedUser, { withCredentials: true });
         } catch (error) {
           console.error('Error during authentication state change:', error);
         }
       } else {
+        axios.post("http://localhost:5000/logout", loggedUser, { withCredentials: true });
         setUser(null);
         localStorage.removeItem('user');
       }
@@ -137,7 +139,7 @@ const AuthContextProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user?.email]);
 
   const authInfo = {
     loading,

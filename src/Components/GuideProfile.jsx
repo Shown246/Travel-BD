@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthContextProvider";
 import { MdOutlineSaveAs, MdOutlineModeEdit } from "react-icons/md";
 import axios from "axios";
@@ -6,11 +6,32 @@ import { toast } from "react-toastify";
 
 const GuideProfile = () => {
   const { user } = useContext(AuthContext);
+  const [eduData, setEduData] = useState("");
+  const [sklData, setsklData] = useState("");
+  const [expData, setexpData] = useState("");
+  const [phnData, setphnData] = useState("");
+  const [isSaveEnabled, setIsSaveEnabled] = useState(false);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/guide/profile?email=${user.email}`)
+      .then((res) => {
+        const data = res.data;
+        setEduData(data.eduData);
+        setsklData(data.sklData);
+        setexpData(data.expData);
+        setphnData(data.phnData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [user.email]);
   const [isEditing, setIsEditing] = useState(false);
   const handleEditClick = () => {
     setIsEditing(true);
+    setIsSaveEnabled(true);
   };
   const handleSaveClick = () => {
+    console.log("Save Clicked");
     const updatedData = {
       email: user.email,
       eduData,
@@ -19,7 +40,9 @@ const GuideProfile = () => {
       phnData,
     };
     axios
-      .post("http://localhost:5000/guide/profile", updatedData, {withCredentials: true})
+      .post("http://localhost:5000/guide/profile", updatedData, {
+        withCredentials: true,
+      })
       .then(() => {
         setIsEditing(false);
         toast.success("Changes saved successfully");
@@ -29,19 +52,15 @@ const GuideProfile = () => {
       });
   };
 
-  const [eduData, setEduData] = useState("Hiji Biji");
   const handleEduChange = (e) => {
     setEduData(e.target.value);
   };
-  const [sklData, setsklData] = useState("Hiji Biji");
   const handlesklChange = (e) => {
     setsklData(e.target.value);
   };
-  const [expData, setexpData] = useState("Hiji Biji");
   const handleexpChange = (e) => {
     setexpData(e.target.value);
   };
-  const [phnData, setphnData] = useState("Hiji Biji");
   const handlephnChange = (e) => {
     setphnData(e.target.value);
   };
@@ -174,8 +193,14 @@ const GuideProfile = () => {
             Edit
           </button>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl flex items-center gap-1"
             onClick={handleSaveClick}
+            id="saveBtn"
+            disabled={!isSaveEnabled}
+            className={`${
+              isSaveEnabled
+                ? "bg-blue-500 hover:bg-blue-700 cursor-pointer"
+                : "bg-gray-500 cursor-not-allowed"
+            } text-white font-bold py-2 px-4 rounded-xl flex items-center gap-1`}
           >
             <span>
               <MdOutlineSaveAs size={30} />

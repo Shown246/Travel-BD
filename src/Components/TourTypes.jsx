@@ -2,66 +2,19 @@
 // import PropTypes from "prop-types";
 // import { useNavigate } from "react-router-dom";
 
-// import axios from "axios";
-// import { useEffect, useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const types = [
-  {
-    id: 1,
-    name: "Adventure",
-    description:
-      "Activities like trekking, hiking, river rafting, and other thrilling experiences.",
-    imageUrl: "https://picsum.photos/300/200?random=1",
-  },
-  {
-    id: 2,
-    name: "Cultural",
-    description:
-      "Tours focusing on the history, traditions, and cultural heritage of a place, including visits to museums, historical sites, and cultural events.",
-    imageUrl: "https://picsum.photos/300/200?random=2",
-  },
-  {
-    id: 3,
-    name: "Nature & Wildlife",
-    description:
-      "Tours that include safaris, bird watching, exploring national parks, and experiencing natural landscapes.",
-    imageUrl: "https://picsum.photos/300/200?random=3",
-  },
-  {
-    id: 4,
-    name: "City Life",
-    description:
-      "Exploring urban areas, including sightseeing of landmarks, architecture, and local attractions within a city.",
-    imageUrl: "https://picsum.photos/300/200?random=4",
-  },
-  {
-    id: 5,
-    name: "Beach & Coastal",
-    description:
-      "Relaxing trips to beaches, islands, and coastal regions, often including water sports, sunbathing, and seaside activities.",
-    imageUrl: "https://picsum.photos/300/200?random=5",
-  },
-  {
-    id: 6,
-    name: "Food & Culinary",
-    description:
-      "Focused on local cuisine, including food tastings, cooking classes, and visits to local markets and restaurants.",
-    imageUrl: "https://picsum.photos/300/200?random=6",
-  },
-];
 
 const TourTypes = () => {
-  // const [categories, setCategories] = useState([]);
-  // useEffect(() => {
-  //   axios.get("https://ph-assignment11-server.vercel.app/categories")
-  //   .then((response) => {
-  //     setCategories(response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-  // } ,[]);
-
+  const [types, setTypes] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:5000/types").then((res) => {
+      setTypes(res.data);
+    }).catch((err) => {
+      console.log(err);
+    });
+  } ,[]);
   return (
     <div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 lg:my-16 my-8">

@@ -15,6 +15,7 @@ import BookTour from "./Components/BookTour";
 import Wishlist from "./Components/Wishlist";
 import ReqToAdmin from "./Components/ReqToAdmin";
 import PackageDetail from "./Components/PackageDetail";
+import AllPackages from "./Components/AllPackages";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
@@ -69,6 +70,10 @@ const Router = () => {
         {
           path:"/packageDetails/:id",
           element: <PackageDetail/>
+        },
+        {
+          path: "/allPackages",
+          element: <AllPackages/>
         }
       ],
     },

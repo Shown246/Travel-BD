@@ -2,29 +2,10 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PackageCard from './PackageCard';
-const cardsData = [
-  {
-    photo: 'https://example.com/photo1.jpg',
-    tourType: 'Adventure',
-    tripTitle: 'Explore the Sundarbans',
-    price: '150 USD'
-  },
-  {
-    photo: 'https://example.com/photo2.jpg',
-    tourType: 'Cultural',
-    tripTitle: 'Dhaka City Tour',
-    price: '100 USD'
-  },
-  {
-    photo: 'https://example.com/photo2.jpg',
-    tourType: 'Cultural',
-    tripTitle: 'Dhaka City Tour',
-    price: '100 USD'
-  },
-  // Add more card data here
-];
+import axios from 'axios';
+
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,6 +37,15 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs() {
+  const [cardsData, setCardsData] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:5000/packages").then((res) => {
+      setCardsData(res.data.slice(0, 3));
+    }).catch((err) => {
+      console.log(err);
+    });
+  } ,[]);
+  
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -63,6 +53,7 @@ export default function BasicTabs() {
   };
 
   return (
+    <>
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -87,5 +78,8 @@ export default function BasicTabs() {
         Item Three
       </CustomTabPanel>
     </Box>
+    <button className='block mx-auto'>All Packages</button>
+    </>
+    
   );
 }

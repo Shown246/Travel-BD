@@ -14,6 +14,7 @@ import TouristProfile from "./Components/TouristProfile";
 import BookTour from "./Components/BookTour";
 import Wishlist from "./Components/Wishlist";
 import ReqToAdmin from "./Components/ReqToAdmin";
+import PackageDetail from "./Components/PackageDetail";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
@@ -65,6 +66,10 @@ const Router = () => {
           path: "/signUp",
           element: <SignUp />,
         },
+        {
+          path:"/packageDetails/:id",
+          element: <PackageDetail/>
+        }
       ],
     },
     {

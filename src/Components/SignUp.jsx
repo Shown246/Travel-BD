@@ -47,7 +47,6 @@ const SignUp = () => {
     }
   };
   const [role, setRole] = useState("");
-
   const handleRole = (event) => {
     setRole(event.target.value);
   };

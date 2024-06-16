@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // import SimpleGallery from "./SimpleGallery";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,6 +12,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const PackageDetail = () => {
   const { id } = useParams();
   const [packageData, setPackageData] = useState({});
+  const [guideData, setGuideData] = useState([]);
 
   useEffect(() => {
     axios
@@ -24,8 +25,19 @@ const PackageDetail = () => {
       });
   }, [id]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/guides")
+      .then((res) => {
+        setGuideData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  console.log(guideData);
   const items = packageData.tour_plan;
-  console.log(items);
 
   return (
     <div className="container90 mt-16">
@@ -37,6 +49,13 @@ const PackageDetail = () => {
       </div>
       {items &&
         items.map((item, index) => <TourPlan item={item} key={index} />)}
+      <div className="mt-6">
+        <h1>Tour Guides</h1>
+        {/* List of guides */}
+        {guideData.map((guide, index) => (
+          <Guide key={index} guide={guide} />
+        ))}
+      </div>
     </div>
   );
 };
@@ -50,12 +69,25 @@ const TourPlan = ({ item }) => {
   return (
     <Accordion expanded={expanded} onChange={handleExpansion}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography>{item.day}</Typography>
+        <Typography className="bg-genoa text-white p-2 rounded-md">{item.day}</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails className="bg-amber-100">
         <Typography>{item.details}</Typography>
       </AccordionDetails>
     </Accordion>
+  );
+};
+
+const Guide = ({ guide }) => {
+  const navigate = useNavigate();
+  const handleClick = (id) => {
+    navigate(`/guideProfile/${id}`);
+  }
+  return (
+    <div onClick={() => {handleClick(guide._id)}} className="mt-4 flex gap-8 cursor-pointer">
+      <h2>{guide.name}</h2>
+      <p>{guide.phnData}</p>
+    </div>
   );
 };
 

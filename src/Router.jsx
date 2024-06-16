@@ -16,6 +16,7 @@ import Wishlist from "./Components/Wishlist";
 import ReqToAdmin from "./Components/ReqToAdmin";
 import PackageDetail from "./Components/PackageDetail";
 import AllPackages from "./Components/AllPackages";
+import GuideProfilePage from "./Components/GuideProfilePage";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
@@ -74,6 +75,10 @@ const Router = () => {
         {
           path: "/allPackages",
           element: <AllPackages/>
+        },
+        {
+          path: "/guideProfile/:id",
+          element: <GuideProfilePage/>
         }
       ],
     },

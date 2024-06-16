@@ -31,14 +31,16 @@ const GuideProfile = () => {
     setIsSaveEnabled(true);
   };
   const handleSaveClick = () => {
-    console.log("Save Clicked");
     const updatedData = {
       email: user.email,
+      name: user.displayName,
+      img: user.photoURL,
       eduData,
       sklData,
       expData,
       phnData,
     };
+    console.log(updatedData);
     axios
       .post("http://localhost:5000/guide/profile", updatedData, {
         withCredentials: true,

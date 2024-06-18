@@ -6,7 +6,9 @@ const BookTour = () => {
   let count = 1;
   useEffect(() => {
     axios
-      .get("http://localhost:5000/bookings")
+      .get("http://localhost:5000/bookings",
+      { withCredentials: true }
+      )
       .then((res) => {
         setBookings(res.data);
       })
@@ -14,7 +16,6 @@ const BookTour = () => {
         console.log(err);
       });
   } , []);
-  console.log(bookings);
 
   return (
     <div>

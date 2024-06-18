@@ -33,9 +33,12 @@ const PackageCard = (props) => {
     if(wishlist) {
       return;
     }
-    const email = user.email;
-    const packageId = _id;
-    const data = { email, packageId };
+    const data = {
+      email: user.email,
+      packageName: title,
+      packageId: _id,
+      price: price
+    };
     axios
     .post(
       "http://localhost:5000/addToWishlist",

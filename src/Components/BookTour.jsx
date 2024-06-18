@@ -30,6 +30,8 @@ const BookTour = () => {
               <th>Date</th>
               <th>Price</th>
               <th>Status</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -41,7 +43,23 @@ const BookTour = () => {
                 <td>{booking.guideName}</td>
                 <td>{booking.startDate.slice(0,10)}</td>
                 <td>{booking.price}</td>
-                <td></td>
+                <td>{booking.status}</td>
+                <td>
+                  <button
+                    className="bg-flamingo disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-red-100 hover:text-flamingo text-white font-medium py-1 px-2 rounded"
+                    disabled = {((booking.status === "In Review")&&(booking.status === "Rejected")) ? true : false}
+                  >
+                    Cancel
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="bg-genoa disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-light-green-400 text-white font-medium py-1 px-2 rounded"
+                    disabled = {booking.status === "Accepted" ? false : true}
+                  >
+                    Pay Now
+                  </button>
+                  </td>
               </tr>
             ))}
           </tbody>

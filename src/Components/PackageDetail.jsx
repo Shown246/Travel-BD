@@ -47,28 +47,43 @@ const PackageDetail = () => {
   const items = packageData.tour_plan;
   const [startDate, setStartDate] = useState(new Date());
   const [selectGuide, setSelectGuide] = useState("");
+
   const handleRole = (event) => {
     setSelectGuide(event.target.value);
   };
 
   const handleBooking = (e) => {
     e.preventDefault();
-    console.log("Submitted");
-    const bookingData = {
-      touristName: user.displayName,
-      touristEmail: user.email,
-      packageName: packageData.title,
-      price: packageData.price,
-      guideName: selectGuide,
-      startDate: startDate,
-    };
     axios
-      .post("http://localhost:5000/bookings", bookingData, { withCredentials: true })
-      .then(() => {
-        toast.success("Booking Successful");
+      .get(`http://localhost:5000/guide/${selectGuide}`)
+      .then((res) => {
+        const guideName = res.data.name;
+        const guideEmail = res.data.email;
+        const bookingData = {
+          touristName: user.displayName,
+          touristEmail: user.email,
+          packageName: packageData.title,
+          price: packageData.price,
+          guideName: guideName,
+          guideEmail: guideEmail,
+          status: "In Review",
+          startDate: startDate,
+        };
+        axios
+          .post("http://localhost:5000/bookings", bookingData, {
+            withCredentials: true,
+          })
+          .then(() => {
+            toast.success("Booking Successful");
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Booking Failed");
+          });
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Failed to get guide details");
       });
   };
 
@@ -112,25 +127,30 @@ const PackageDetail = () => {
             onChange={(date) => setStartDate(date)}
           />
           <div>
-          <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-                  <InputLabel id="demo-select-small-label">Select a Guide</InputLabel>
-                  <Select
-                    labelId="demo-select-small-label"
-                    id="demo-select-small"
-                    value={selectGuide}
-                    label="Guide"
-                    required
-                    onChange={handleRole}
-                  >
-                    {guideData.map((guide, index) => (
-                      <MenuItem key={index} value={guide.name}>
-                        {guide.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+              <InputLabel id="demo-select-small-label">
+                Select a Guide
+              </InputLabel>
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={selectGuide}
+                label="Guide"
+                required
+                onChange={handleRole}
+              >
+                {guideData.map((guide, index) => (
+                  <MenuItem key={index} value={guide._id}>
+                    {guide.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
-          <button type="submit" className="bg-genoa text-white hover:bg-flamingo  p-2 rounded-md mt-4">
+          <button
+            type="submit"
+            className="bg-genoa text-white hover:bg-flamingo  p-2 rounded-md mt-4"
+          >
             Book Now
           </button>
         </form>

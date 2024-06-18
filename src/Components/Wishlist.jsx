@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Button, Modal } from "flowbite-react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const Wishlist = () => {
   let count = 1;
   const [wishlist, setWishlist] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  // const [state, setState] = useState(false);
+  const [id, setId] = useState("");
   useEffect(() => {
     axios
       .get("http://localhost:5000/wishlist", { withCredentials: true })
@@ -14,6 +20,27 @@ const Wishlist = () => {
         console.log(err);
       });
   }, []);
+
+  const handleDelete = () => {
+    console.log(id);
+    axios.delete(`http://localhost:5000/wishlist/${id}`, { withCredentials: true })
+    .then(() => {
+      axios
+        .get("http://localhost:5000/wishlist", { withCredentials: true })
+        .then((res) => {
+          setWishlist(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+  };
+
+  const navigate = useNavigate();
+
+  const goToPackageDetails = (_id) => {
+    navigate(`/packageDetails/${_id}`);
+  };
 
   return (
     <div>
@@ -37,10 +64,53 @@ const Wishlist = () => {
                 <td>{item.packageName}</td>
                 <td>{item.price}</td>
                 <td>
-                  <button className="px-4 py-2 rounded-md bg-flamingo text-white hover:bg-gray-400 hover:text-flamingo">Delete</button>
+                  <button
+                    onClick={() => {
+                      setId(item.packageId);
+                      setOpenModal(true);
+                    }}
+                    className="px-4 py-2 rounded-md bg-flamingo text-white hover:bg-gray-400 hover:text-flamingo"
+                  >
+                    Delete
+                  </button>
+                  <Modal
+                    show={openModal}
+                    size="md"
+                    onClose={() => setOpenModal(false)}
+                    popup
+                  >
+                    <Modal.Header />
+                    <Modal.Body>
+                      <div className="text-center">
+                        <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                          Are you sure you want to delete this product?
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                          <Button
+                            className="bg-flamingo text-white"
+                            onClick={() => {
+                              handleDelete();
+                              setOpenModal(false);
+                            }}
+                          >
+                            {"Yes, I'm sure"}
+                          </Button>
+                          <Button
+                            className="bg-gray-200 text-gray-800 dark:text-gray-200"
+                            onClick={() => setOpenModal(false)}
+                          >
+                            No, cancel
+                          </Button>
+                        </div>
+                      </div>
+                    </Modal.Body>
+                  </Modal>
                 </td>
                 <td>
-                  <button className="px-4 py-2 rounded-md bg-genoa text-white hover:bg-gray-400 hover:text-genoa">Visit Details</button>
+                  <button onClick={() => {goToPackageDetails(item.packageId)}} className="px-4 py-2 rounded-md bg-genoa text-white hover:bg-gray-400 hover:text-genoa">
+                    Visit Details
+                  </button>
                 </td>
               </tr>
             ))}

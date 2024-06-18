@@ -6,7 +6,6 @@ const TouristSide = () => {
   console.log("It renders TouristSide");
   const navigate = useNavigate();
   const { user, LogOutUser } = useContext(AuthContext);
-  console.log(user);
   const activeStyle =
     "flex items-center p-2 rounded-lg  bg-flamingo text-accentGold dark:hover:bg-gray-700 group";
   const navLists = (

@@ -57,8 +57,9 @@ const PackageDetail = () => {
     const bookingData = {
       touristName: user.displayName,
       touristEmail: user.email,
-      packageId: packageData._id,
-      guideId: selectGuide,
+      packageName: packageData.title,
+      price: packageData.price,
+      guideName: selectGuide,
       startDate: startDate,
     };
     axios
@@ -122,7 +123,7 @@ const PackageDetail = () => {
                     onChange={handleRole}
                   >
                     {guideData.map((guide, index) => (
-                      <MenuItem key={index} value={guide._id}>
+                      <MenuItem key={index} value={guide.name}>
                         {guide.name}
                       </MenuItem>
                     ))}

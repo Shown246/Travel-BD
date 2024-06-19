@@ -17,10 +17,15 @@ import ReqToAdmin from "./Components/ReqToAdmin";
 import PackageDetail from "./Components/PackageDetail";
 import AllPackages from "./Components/AllPackages";
 import GuideProfilePage from "./Components/GuideProfilePage";
+import AdminProfile from "./Components/AdminProfile";
+import AddPackage from "./Components/AddPackage";
+import ManageUsers from "./Components/ManageUsers";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
+  console.log(user);
   const role = user?.role;
+  console.log(role);
   const guideRoutes = [
     {
       path: "/dashboard/profile",
@@ -50,6 +55,31 @@ const Router = () => {
       element: <ProtectedRoute><ReqToAdmin/></ProtectedRoute>,
     },
   ];
+
+  const adminRoutes = [
+    {
+      path: "/dashboard/profile",
+      element: <ProtectedRoute><AdminProfile/></ProtectedRoute>,
+    },
+    {
+      path: "/dashboard/addPackage",
+      element: <ProtectedRoute><AddPackage/></ProtectedRoute>,
+    },
+    {
+      path: "/dashboard/manageUsers",
+      element: <ProtectedRoute><ManageUsers/></ProtectedRoute>,
+    },
+  ];
+
+  let childrenRoutes = [];
+
+  if (role === "Guide") {
+    childrenRoutes = guideRoutes;
+  } else if (role === "Tourist") {
+    childrenRoutes = touristRoutes;
+  } else if (role === "Admin") {
+    childrenRoutes = adminRoutes;
+  }
   const router = createBrowserRouter([
     {
       path: "/",
@@ -89,7 +119,7 @@ const Router = () => {
           <Dashboard />
         </ProtectedRoute>
       ),
-      children : role === "Guide" ? guideRoutes : touristRoutes,
+      children : childrenRoutes,
     },
   ]);
   return <RouterProvider router={router} />;

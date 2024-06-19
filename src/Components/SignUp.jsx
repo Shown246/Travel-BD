@@ -3,10 +3,6 @@ import { AuthContext } from "../AuthContextProvider";
 import { useContext, useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { FcGoogle } from "react-icons/fc";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import axios from "axios";
 
 const SignUp = () => {
@@ -20,17 +16,18 @@ const SignUp = () => {
     const photoURL = e.target.photoURL.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const newUser = { name,photoURL, role, email, password };
+    const newUser = { name, photoURL, role: "Tourist", email, password };
     SignUpUser(name, photoURL, email, password)
       .then((user) => {
         if (user !== null) {
-          axios.post("http://localhost:5000/users", newUser)
-          .then(() => {
-            navigate("/");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+          axios
+            .post("http://localhost:5000/users", newUser)
+            .then(() => {
+              navigate("/");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }
       })
       .catch((error) => {
@@ -45,10 +42,6 @@ const SignUp = () => {
       setIcon(false);
       setType("password");
     }
-  };
-  const [role, setRole] = useState("");
-  const handleRole = (event) => {
-    setRole(event.target.value);
   };
   return (
     <>
@@ -75,7 +68,14 @@ const SignUp = () => {
                     GoogleSignUp()
                       .then((user) => {
                         if (user !== null) {
-                          navigate("/");
+                          axios
+                            .post("http://localhost:5000/users", {role: "Tourist"})
+                            .then(() => {
+                              navigate("/");
+                            })
+                            .catch((error) => {
+                              console.log(error);
+                            });
                         }
                       })
                       .catch((error) => {
@@ -110,21 +110,6 @@ const SignUp = () => {
                 <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-100 transform text-base text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-100 peer-focus:text-black peer-focus:dark:text-black">
                   Photo URL
                 </label>
-              </div>
-              <div>
-                <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-                  <InputLabel id="demo-select-small-label">Join as</InputLabel>
-                  <Select
-                    labelId="demo-select-small-label"
-                    id="demo-select-small"
-                    value={role}
-                    label="Role"
-                    onChange={handleRole}
-                  >
-                    <MenuItem value="Tourist">Tourist</MenuItem>
-                    <MenuItem value="Guide">Tour Guide</MenuItem>
-                  </Select>
-                </FormControl>
               </div>
               <div className="relative z-0">
                 <input

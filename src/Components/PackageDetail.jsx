@@ -54,14 +54,18 @@ const PackageDetail = () => {
 
   const handleBooking = (e) => {
     e.preventDefault();
+    if(!user) {
+      toast.error("Please login to book a package");
+      return;
+    }
     axios
       .get(`http://localhost:5000/guide/${selectGuide}`)
       .then((res) => {
         const guideName = res.data.name;
         const guideEmail = res.data.email;
         const bookingData = {
-          touristName: user.displayName,
-          touristEmail: user.email,
+          touristName: user?.displayName,
+          touristEmail: user?.email,
           packageName: packageData.title,
           price: packageData.price,
           guideName: guideName,
@@ -110,13 +114,13 @@ const PackageDetail = () => {
               <label className="mb-2 text-base font-semibold text-gray-900 dark:text-white">
                 Name
               </label>
-              <p>{user.displayName}</p>
+              <p>{user?.displayName}</p>
               <label className="mb-2 text-base font-semibold text-gray-900 dark:text-white">
                 Email
               </label>
-              <p>{user.email}</p>
+              <p>{user?.email}</p>
             </div>
-            <img src={user.photoURL} className="w-24" />
+            <img src={user?.photoURL} className="w-24" />
           </div>
           <p className="mt-4 text-lg">
             <span className="font-semibold">Price:</span> {packageData.price}

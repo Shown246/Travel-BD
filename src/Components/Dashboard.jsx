@@ -12,7 +12,7 @@ const Dashboard = () => {
     return (
       <div className="flex">
         <AdminSide/>
-        <div className="ml-64">
+        <div className="ml-64 w-full">
           <Outlet />
         </div>
       </div>

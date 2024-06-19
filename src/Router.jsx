@@ -23,9 +23,7 @@ import ManageUsers from "./Components/ManageUsers";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
   const role = user?.role;
-  console.log(role);
   const guideRoutes = [
     {
       path: "/dashboard/profile",

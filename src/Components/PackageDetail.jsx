@@ -58,6 +58,10 @@ const PackageDetail = () => {
       toast.error("Please login to book a package");
       return;
     }
+    if(user?.role === "Guide") {
+      toast.error("Guides can't book a Tour");
+      return;
+    }
     axios
       .get(`http://localhost:5000/guide/${selectGuide}`)
       .then((res) => {

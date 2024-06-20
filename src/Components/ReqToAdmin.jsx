@@ -1,20 +1,21 @@
 import { useState } from "react";
-// import axios from "axios";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ReqToAdmin = () => {
   const [requested, setRequested] = useState(false);
 
   const handleRequest = () => {
-    // Assume the user's email is available in the context or props
-        setRequested(true);
 
-    // axios.post("http://localhost:5000/requestGuide", { email: userEmail })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("There was an error making the request:", error);
-    //   });
+    axios.post("http://localhost:5000/reqToAdmin",{}, { withCredentials: true})
+      .then(() => {
+        setRequested(true);
+        toast.success("Request Sent!");
+      })
+      .catch((error) => {
+        console.error("There was an error making the request:", error);
+        toast.error("Failed to send request");
+      });
   };
   return (
     <div>

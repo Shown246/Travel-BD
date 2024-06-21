@@ -210,7 +210,12 @@ const PackageDetail = () => {
         </Box>
       </Modal>
     </div>
-      {count === 3 && <Confetti width={width-50} height={height} />}
+      {count === 3 && <Confetti width={width-50} height={height+100} confettiSource={{
+        w: 100,
+        h: 100,
+        x: width/2,
+        y: 2/height ,
+      }} />}
     </>
     
   );

@@ -20,6 +20,7 @@ import GuideProfilePage from "./Components/GuideProfilePage";
 import AdminProfile from "./Components/AdminProfile";
 import AddPackage from "./Components/AddPackage";
 import ManageUsers from "./Components/ManageUsers";
+import Blogs from "./Components/Blogs";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
@@ -107,6 +108,10 @@ const Router = () => {
         {
           path: "/guideProfile/:id",
           element: <GuideProfilePage/>
+        },
+        {
+          path: "/blogs",
+          element: <Blogs/>
         }
       ],
     },

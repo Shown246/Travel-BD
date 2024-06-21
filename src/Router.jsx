@@ -21,6 +21,8 @@ import AdminProfile from "./Components/AdminProfile";
 import AddPackage from "./Components/AddPackage";
 import ManageUsers from "./Components/ManageUsers";
 import Blogs from "./Components/Blogs";
+import Community from "./Components/Community";
+import AboutUs from "./Components/AboutUs";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
@@ -112,6 +114,14 @@ const Router = () => {
         {
           path: "/blogs",
           element: <Blogs/>
+        },
+        {
+          path: "/community",
+          element: <Community/>
+        },
+        {
+          path: "/about",
+          element: <AboutUs/>
         }
       ],
     },

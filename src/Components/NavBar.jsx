@@ -38,7 +38,7 @@ const NavBar = () => {
       </li>
       <li className="mb-3 lg:mb-0">
         <NavLink
-          to="/allBooks"
+          to="/community"
           className={({ isActive }) => (isActive ? activeStyle : "p-3")}
         >
           Community
@@ -54,7 +54,7 @@ const NavBar = () => {
       </li>
       <li className="mb-3 lg:mb-0">
         <NavLink
-          to="/borrowed"
+          to="/about"
           className={({ isActive }) => (isActive ? activeStyle : "p-3")}
         >
           About Us

@@ -16,12 +16,32 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { toast } from "react-toastify";
+import Confetti from "react-confetti";
+import {useWindowSize} from 'react-use';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const PackageDetail = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   const [packageData, setPackageData] = useState({});
   const [guideData, setGuideData] = useState([]);
+  const [count, setCount] = useState(0);
+  const {width, height} = useWindowSize();
+  const [open, setOpen] = useState(false);
+  
 
   useEffect(() => {
     axios
@@ -54,11 +74,11 @@ const PackageDetail = () => {
 
   const handleBooking = (e) => {
     e.preventDefault();
-    if(!user) {
+    if (!user) {
       toast.error("Please login to book a package");
       return;
     }
-    if(user?.role === "Guide") {
+    if (user?.role === "Guide") {
       toast.error("Guides can't book a Tour");
       return;
     }
@@ -81,8 +101,9 @@ const PackageDetail = () => {
           .post("http://localhost:5000/bookings", bookingData, {
             withCredentials: true,
           })
-          .then(() => {
+          .then((res) => {
             toast.success("Booking Successful");
+            setCount(res?.data[0]?.count);
           })
           .catch((err) => {
             console.log(err);
@@ -94,8 +115,15 @@ const PackageDetail = () => {
         toast.error("Failed to get guide details");
       });
   };
+  useEffect(() => {
+    if(count === 3) {
+      setOpen(true);
+    }
+  }, [count]);
+  const handleClose = () => setOpen(false);
 
   return (
+    <>
     <div className="container90 mt-16">
       {/* <SimpleGallery images={packageData.images || []} /> */}
       <div className="mt-8">
@@ -163,7 +191,28 @@ const PackageDetail = () => {
           </button>
         </form>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Congratulations!
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            You got a discount of 10% on your bookings.
+          </Typography>
+          <button className="bg-genoa text-white px-4 py-2 rounded-md" onClick={() =>{setOpen(false)}}>
+            Apply
+          </button>
+        </Box>
+      </Modal>
     </div>
+      {count === 3 && <Confetti width={width-50} height={height} />}
+    </>
+    
   );
 };
 

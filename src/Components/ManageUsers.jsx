@@ -14,21 +14,28 @@ const roleOptions = [
 const ManageUsers = () => {
   let count = 1;
   const [users, setUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [refetch, setRefetch] = useState(false);
   const [disabledIndex, setDisabledIndex] = useState([]);
   const [roleFilter, setRoleFilter] = useState("");
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     axios
       .get(`http://localhost:5000/users?roleFilter=${roleFilter}`, { withCredentials: true })
       .then((res) => {
         setUsers(res.data);
+        setAllUsers(res.data);
+        if(search !== "") {
+          setUsers(res.data.filter((user) => user.name === search || user.email === search));
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [refetch, roleFilter]);
+  }, [refetch, roleFilter, search]);
 
-  const userOptions = users.flatMap((user) => [
+  const userOptions = allUsers.flatMap((user) => [
     { value: user.name, label: user.name },
     { value: user.email, label: user.email },
   ]);
@@ -78,25 +85,38 @@ const ManageUsers = () => {
       setRoleFilter("");
     }
   };
+  const handleSearch = (option) => {
+    if (option) {
+      setSearch(option.value);
+    } else {
+      setSearch("");
+    }
+  };
+
   return (
     <div>
       <div className="flex w-full">
         <Select
           className="basic-single w-full"
+          isSearchable={false}
           classNamePrefix="select"
           closeMenuOnSelect={true}
           isClearable={true}
           components={animatedComponents}
           options={roleOptions}
+          placeholder="Filter by role"
           onChange={(option) => handleRoleFilter(option)}
         />
         <Select
           className="basic-single w-full"
           classNamePrefix="select"
+          closeMenuOnSelect={true}
+          placeholder="Search by name or email"
           isClearable={true}
           isSearchable={true}
           name="color"
           options={userOptions}
+          onChange={(option) => handleSearch(option)}
         />
       </div>
       <div className="overflow-x-auto">

@@ -1,28 +1,37 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContextProvider";
 import { toast } from "react-toastify";
+import { useQuery } from '@tanstack/react-query';
+
 
 const PackageCard = (props) => {
   // eslint-disable-next-line react/prop-types
   const { _id, title, type, duration, price, images } = props;
   const [wishlist, setWishlist] = useState(false);
   const {user} = useContext(AuthContext);
-
-  useEffect(() => {
-    axios.get(`http://localhost:5000/checkWishlist/${_id}`, { withCredentials: true })
-    .then((res) => {
-      if (res.data) {
-        setWishlist(true);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }, [_id]);
   const navigate = useNavigate();
+  
+  const fetchWishlist = async (query) => {
+    const id = query.queryKey[0];
+    const response = await axios.get(`http://localhost:5000/checkWishlist/${id}`, { withCredentials: true });
+    if(response.data) {
+      setWishlist(true);
+    }
+    return response.data;
+  };
+  const { status, error } = useQuery({
+    queryKey: [_id],
+    queryFn: fetchWishlist,
+  });
+  if (status === 'pending') {
+    return <div className="mx-auto flex justify-center items-center"><span className="loading loading-bars loading-lg"></span></div>
+  }
+  if (status === 'error') {
+    return <span>Error: {error.message}</span>
+  }
 
   const goToPackageDetails = () => {
     navigate(`/packageDetails/${_id}`);

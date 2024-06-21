@@ -1,24 +1,28 @@
-// import { FaStar } from "react-icons/fa6";
-// import PropTypes from "prop-types";
-// import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from "react-router-dom";
 
+const fetchTypes = async () => {
+  const response = await axios.get('http://localhost:5000/types/');
+  return response.data;
+};
+
 const TourTypes = () => {
-  const [types, setTypes] = useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:5000/types").then((res) => {
-      setTypes(res.data);
-    }).catch((err) => {
-      console.log(err);
-    });
-  } ,[]);
+  const { status, data, error } = useQuery({
+    queryKey: [],
+    queryFn: fetchTypes,
+  });
+  if (status === 'pending') {
+    return <div className="mx-auto flex justify-center items-center"><span className="loading loading-bars loading-lg"></span></div>
+  }
+  if (status === 'error') {
+    return <span>Error: {error.message}</span>
+  }
+  
   return (
     <div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 lg:my-16 my-8">
-        {types.map((item, index) => (
+        {data.map((item, index) => (
           <Card card={item} key={index} />
         ))}
       </div>

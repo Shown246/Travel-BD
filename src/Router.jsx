@@ -23,6 +23,8 @@ import ManageUsers from "./Components/ManageUsers";
 import Blogs from "./Components/Blogs";
 import Community from "./Components/Community";
 import AboutUs from "./Components/AboutUs";
+import Contact from "./Components/Contact";
+import PackageTypes from "./Components/PackageTypes";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
@@ -122,6 +124,14 @@ const Router = () => {
         {
           path: "/about",
           element: <AboutUs/>
+        },
+        {
+          path: "/contact",
+          element: <Contact />
+        },
+        {
+          path: "/categories/:id",
+          element: <PackageTypes/>
         }
       ],
     },

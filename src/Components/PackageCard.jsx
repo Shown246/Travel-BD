@@ -20,17 +20,21 @@ const PackageCard = (props) => {
     if(response.data) {
       setWishlist(true);
     }
+    console.log(response.data);
     return response.data;
   };
-  const { status, error } = useQuery({
-    queryKey: [_id],
-    queryFn: fetchWishlist,
-  });
-  if (status === 'pending') {
-    return <div className="mx-auto flex justify-center items-center"><span className="loading loading-bars loading-lg"></span></div>
-  }
-  if (status === 'error') {
-    return <span>Error: {error.message}</span>
+  if(user) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { status, error } = useQuery({
+      queryKey: [_id],
+      queryFn: fetchWishlist,
+    });
+    if (status === 'pending') {
+      return <div className="mx-auto flex justify-center items-center"><span className="loading loading-bars loading-lg"></span></div>
+    }
+    if (status === 'error') {
+      return <span>Error: {error.message}</span>
+    }
   }
 
   const goToPackageDetails = () => {
@@ -39,6 +43,10 @@ const PackageCard = (props) => {
 
   const addToWishlist = (e) => {
     e.preventDefault();
+    if(!user) {
+      toast.error("Please login to add to wishlist");
+      return;
+    }
     if(wishlist) {
       return;
     }

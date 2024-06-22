@@ -1,12 +1,12 @@
 import { useEffect,useState } from "react";
 import axios from "axios";
 import swal from 'sweetalert';
+import ReactPaginate from "react-paginate";
 
 const AssignedTours = () => {
 
   const [bookings, setBookings] = useState([]);
   const [refetch, setRefetch] = useState(false);
-  let count = 1;
   useEffect(() => {
     axios
       .get("http://localhost:5000/assignedTours",
@@ -71,6 +71,19 @@ const AssignedTours = () => {
     });
   };
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
+
+  const offset = currentPage * itemsPerPage;
+  const currentItems = bookings.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(bookings.length / itemsPerPage);
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  let count2 = offset + 1;
+
   return (
     <div>
       <div className="overflow-x-auto">
@@ -90,9 +103,9 @@ const AssignedTours = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {bookings.map((booking) => (
+            {currentItems.map((booking) => (
               <tr key={booking._id}>
-                <td>{count++}</td>
+                <td>{count2++}</td>
                 <td>{booking.packageName}</td>
                 <td>{booking.guideName}</td>
                 <td>{booking.startDate.slice(0,10)}</td>
@@ -118,6 +131,19 @@ const AssignedTours = () => {
             ))}
           </tbody>
         </table>
+        <ReactPaginate
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        subContainerClassName={'pages pagination'}
+        activeClassName={'active'}
+      />
       </div>
     </div>
   )

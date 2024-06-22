@@ -3,9 +3,10 @@ import axios from "axios";
 import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 const Wishlist = () => {
-  let count = 1;
+
   const [wishlist, setWishlist] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   // const [state, setState] = useState(false);
@@ -41,6 +42,18 @@ const Wishlist = () => {
   const goToPackageDetails = (_id) => {
     navigate(`/packageDetails/${_id}`);
   };
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
+
+  const offset = currentPage * itemsPerPage;
+  const currentItems = wishlist.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(wishlist.length / itemsPerPage);
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  let count2 = offset + 1;
 
   return (
     <div>
@@ -58,9 +71,9 @@ const Wishlist = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {wishlist.map((item) => (
+            {currentItems.map((item) => (
               <tr key={item._id}>
-                <td>{count++}</td>
+                <td>{count2++}</td>
                 <td>{item.packageName}</td>
                 <td>{item.price}</td>
                 <td>
@@ -116,6 +129,19 @@ const Wishlist = () => {
             ))}
           </tbody>
         </table>
+        <ReactPaginate
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        subContainerClassName={'pages pagination'}
+        activeClassName={'active'}
+      />
       </div>
     </div>
   );

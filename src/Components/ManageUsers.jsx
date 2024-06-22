@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import ReactPaginate from "react-paginate";
 const animatedComponents = makeAnimated();
 
 const roleOptions = [
@@ -12,7 +13,6 @@ const roleOptions = [
 ];
 
 const ManageUsers = () => {
-  let count = 1;
   const [users, setUsers] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [refetch, setRefetch] = useState(false);
@@ -93,6 +93,19 @@ const ManageUsers = () => {
     }
   };
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
+
+  const offset = currentPage * itemsPerPage;
+  const currentItems = users.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(users.length / itemsPerPage);
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  let count2 = offset + 1;
+
   return (
     <div>
       <div className="flex w-full">
@@ -134,9 +147,9 @@ const ManageUsers = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {users.map((user, index) => (
+            {currentItems.map((user, index) => (
               <tr key={index}>
-                <td>{count++}</td>
+                <td>{count2++}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
@@ -173,6 +186,19 @@ const ManageUsers = () => {
             ))}
           </tbody>
         </table>
+        <ReactPaginate
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        subContainerClassName={'pages pagination'}
+        activeClassName={'active'}
+      />
       </div>
     </div>
   );

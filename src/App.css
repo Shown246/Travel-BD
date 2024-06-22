@@ -9,3 +9,33 @@
   }
 }
 @tailwind utilities;
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  list-style: none;
+}
+
+.pagination li {
+  display: inline;
+  margin: 0 0.25rem;
+}
+
+.pagination li a {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.pagination li.active a {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.pagination li.disabled a {
+  color: #ddd;
+  cursor: not-allowed;
+}

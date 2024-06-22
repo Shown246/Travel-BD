@@ -1,0 +1,17 @@
+{
+  "title": "Trip to Sundarbans",
+  "images": [
+    "https://i.ibb.co/qCX3bhh/sundarbans00.jpg",
+    "https://i.ibb.co/QY8By1F/sundarbans01.jpg",
+    "https://i.ibb.co/DKd5XM5/sundarbans02.jpg",
+    "https://i.ibb.co/K2JWd8w/sundarbans03.jpg",
+    "https://i.ibb.co/g4cSmcv/sundarbans04.jpg",
+    "https://i.ibb.co/rb2SDnw/sundarban05.jpg"
+  ],
+  "duration": "4 Days 3 Nights",
+  "type": "Nature & Wildlife",
+  "price": {
+    "$numberInt": "9500"
+  },
+  "description": "Worlds Largest Mangrove Forest Belt & The Home of Royal Bengal Tiger. World Heritage Tour Itinerary For Nature and Wildlife Lovers"
+}

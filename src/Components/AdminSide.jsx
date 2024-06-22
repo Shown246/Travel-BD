@@ -9,7 +9,7 @@ const AdminSide = () => {
   const navigate = useNavigate();
   const { user, LogOutUser } = useContext(AuthContext);
   const activeStyle =
-    "flex items-center p-2 rounded-lg  bg-flamingo text-accentGold dark:hover:bg-gray-700 group";
+    "flex items-center p-2 rounded-lg lg:text-base text-sm  bg-flamingo text-accentGold dark:hover:bg-gray-700 group";
   const navLists = (
     <>
       <li className="mb-3 lg:mb-0">
@@ -18,11 +18,11 @@ const AdminSide = () => {
           className={({ isActive }) =>
             isActive
               ? activeStyle
-              : "flex items-center p-2 rounded-lg text-white  hover:bg-flamingo hover:text-white"
+              : "flex items-center p-2 rounded-lg lg:text-base text-sm text-white  hover:bg-flamingo hover:text-white"
           }
         >
           <FaHouseUser size={30} />
-          <span className="flex-1 ms-3 whitespace-nowrap">My Profile</span>
+          <span className="flex-1 lg:ms-3 lg:text-base text-sm whitespace-nowrap">My Profile</span>
         </NavLink>
       </li>
       <li className="mb-3 lg:mb-0">
@@ -57,11 +57,11 @@ const AdminSide = () => {
     <div>
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className="fixed top-0 left-0 z-40 lg:w-64 w-24 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-genoa flex flex-col justify-between">
-          <ul className="space-y-2 font-medium">
+          <ul className="space-y-2 lg:font-medium font-lightlg:text-base text-sm">
             <li className="mb-8">
               <button
                 onClick={() => navigate("/")}
@@ -99,9 +99,9 @@ const AdminSide = () => {
               </button>
             </li>
           </ul>
-          <div className="flex items-center gap-6">
-            <img src={user.photoURL} alt={user.displayName} className="h-20 object-cover" />
-            <p className="text-accentGold text-xl font-semibold">{user.displayName}</p>
+          <div className="flex items-center lg:gap-6">
+            <img src={user.photoURL} alt={user.displayName} className="lg:h-20 h-8 object-cover" />
+            <p className="text-accentGold lg:text-xllg:text-base text-sm  font-semibold">{user.displayName}</p>
           </div>
         </div>
       </aside>

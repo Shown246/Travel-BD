@@ -10,9 +10,9 @@ const Dashboard = () => {
 
   if (user?.role === "Admin") {
     return (
-      <div className="flex">
+      <div className="flex lg:text-xl">
         <AdminSide/>
-        <div className="ml-64 w-full">
+        <div className="lg:ml-64 ml-28 w-full">
           <Outlet />
         </div>
       </div>
@@ -21,7 +21,7 @@ const Dashboard = () => {
     return (
       <div className="flex">
       <GuideSide />
-      <div className="ml-64">
+      <div className="lg:ml-64">
         <Outlet />
       </div>
     </div>

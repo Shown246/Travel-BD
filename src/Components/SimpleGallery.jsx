@@ -16,7 +16,6 @@ const SimpleGallery = () =>{
   // Hook3: Hold items
   const [items, setItems] = useState([]);
   const [, set] = useState(items);
-  console.log(items);
   const fetchAndSetImages = async () => {
 
     try {

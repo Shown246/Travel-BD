@@ -25,6 +25,7 @@ import Community from "./Components/Community";
 import AboutUs from "./Components/AboutUs";
 import Contact from "./Components/Contact";
 import PackageTypes from "./Components/PackageTypes";
+import StoryDetail from "./Components/StoryDetail";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
@@ -132,6 +133,10 @@ const Router = () => {
         {
           path: "/categories/:id",
           element: <PackageTypes/>
+        },
+        {
+          path: "/story/:id",
+          element: <StoryDetail />,
         }
       ],
     },

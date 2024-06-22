@@ -10,6 +10,8 @@ const TouristProfile = () => {
     const story = e.target.story.value;
     const newStory = {
       email: user.email,
+      name: user.displayName,
+      date: new Date().toLocaleDateString(),
       story: story
     };
     axios.post('http://localhost:5000/stories', newStory, { withCredentials: true })
@@ -19,6 +21,7 @@ const TouristProfile = () => {
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Failed to share story");
       });
   }
   return (

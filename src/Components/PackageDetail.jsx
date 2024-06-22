@@ -45,7 +45,7 @@ const PackageDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/packages/${id}`)
+      .get(`https://ph-assignment12-server.vercel.app/packages/${id}`)
       .then((res) => {
         setPackageData(res.data);
       })
@@ -56,7 +56,7 @@ const PackageDetail = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/guides")
+      .get("https://ph-assignment12-server.vercel.app/guides")
       .then((res) => {
         setGuideData(res.data);
       })
@@ -83,7 +83,7 @@ const PackageDetail = () => {
       return;
     }
     axios
-      .get(`http://localhost:5000/guide/${selectGuide}`)
+      .get(`https://ph-assignment12-server.vercel.app/guide/${selectGuide}`)
       .then((res) => {
         const guideName = res.data.name;
         const guideEmail = res.data.email;
@@ -98,7 +98,7 @@ const PackageDetail = () => {
           startDate: startDate,
         };
         axios
-          .post("http://localhost:5000/bookings", bookingData, {
+          .post("https://ph-assignment12-server.vercel.app/bookings", bookingData, {
             withCredentials: true,
           })
           .then((res) => {

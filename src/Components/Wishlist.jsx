@@ -13,7 +13,7 @@ const Wishlist = () => {
   const [id, setId] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:5000/wishlist", { withCredentials: true })
+      .get("https://ph-assignment12-server.vercel.app/wishlist", { withCredentials: true })
       .then((res) => {
         setWishlist(res.data);
       })
@@ -24,10 +24,10 @@ const Wishlist = () => {
 
   const handleDelete = () => {
     console.log(id);
-    axios.delete(`http://localhost:5000/wishlist/${id}`, { withCredentials: true })
+    axios.delete(`https://ph-assignment12-server.vercel.app/wishlist/${id}`, { withCredentials: true })
     .then(() => {
       axios
-        .get("http://localhost:5000/wishlist", { withCredentials: true })
+        .get("https://ph-assignment12-server.vercel.app/wishlist", { withCredentials: true })
         .then((res) => {
           setWishlist(res.data);
         })

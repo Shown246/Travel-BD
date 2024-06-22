@@ -7,7 +7,7 @@ const ReqToAdmin = () => {
 
   const handleRequest = () => {
 
-    axios.post("http://localhost:5000/reqToAdmin",{}, { withCredentials: true})
+    axios.post("https://ph-assignment12-server.vercel.app/reqToAdmin",{}, { withCredentials: true})
       .then(() => {
         setRequested(true);
         toast.success("Request Sent!");

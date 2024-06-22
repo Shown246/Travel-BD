@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from "react-router-dom";
 
 const fetchTypes = async () => {
-  const response = await axios.get('http://localhost:5000/types');
+  const response = await axios.get('https://ph-assignment12-server.vercel.app/types');
   return response.data;
 };
 

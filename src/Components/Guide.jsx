@@ -40,7 +40,7 @@ export default function BasicTabs() {
   const [cardsData, setCardsData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/packages")
+      .get("https://ph-assignment12-server.vercel.app/packages")
       .then((res) => {
         setCardsData(res.data.slice(0, 3));
       })

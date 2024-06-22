@@ -6,10 +6,10 @@ const Footer = () => {
       <footer className="footer footer-center p-10 bg-flamingo">
         <aside>
           <p className="text-4xl mb-4 font-bold block animate__animated animate__fadeIn duration-300">
-          Academia<span className="text-teal">Lib</span>
+          Travel<span className="text-teal">BD</span>
           </p>
           <p className="text-teal">
-            Providing the best quality of books for you.
+            Providing the best quality Services for your travel needs.
           </p>
           <div className="grid grid-flow-col my-4 gap-6">
             <a className="text-accentGold" href="https://twitter.com/"><FaXTwitter  size={30} /></a>

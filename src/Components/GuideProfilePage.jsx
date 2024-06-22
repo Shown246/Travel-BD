@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const fetchGuide = async (query) => {
   const id = query.queryKey[0];
-  const response = await axios.get(`http://localhost:5000/guide/${id}`);
+  const response = await axios.get(`https://ph-assignment12-server.vercel.app/guide/${id}`);
   return response.data;
 };
 

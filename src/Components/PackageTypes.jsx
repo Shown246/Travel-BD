@@ -7,7 +7,7 @@ const PackageTypes = () => {
   const { id } = useParams();
   const fetchPackageTypes = async (key) => {
     const id = key.queryKey[0];
-    const response = await axios.get(`http://localhost:5000/types/${id}`
+    const response = await axios.get(`https://ph-assignment12-server.vercel.app/types/${id}`
     );
     return response.data;
   };

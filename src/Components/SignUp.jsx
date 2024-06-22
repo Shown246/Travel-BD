@@ -21,7 +21,7 @@ const SignUp = () => {
       .then((user) => {
         if (user !== null) {
           axios
-            .post("http://localhost:5000/users", newUser)
+            .post("https://ph-assignment12-server.vercel.app/users", newUser)
             .then(() => {
               navigate("/");
             })
@@ -57,7 +57,7 @@ const SignUp = () => {
               Register
             </h1>
             <h1 className="text-sm font-semibold mb-6 text-center">
-              Join to Our Library with all time access and free{" "}
+              Join with us and Visit <span className="text-flamingo">Bangladesh</span>{" "}
             </h1>
             <div className="mt-4">
               <div className="w-full mb-2 lg:mb-0">
@@ -69,7 +69,7 @@ const SignUp = () => {
                       .then((user) => {
                         if (user !== null) {
                           axios
-                            .post("http://localhost:5000/users", {role: "Tourist"})
+                            .post("https://ph-assignment12-server.vercel.app/users", {role: "Tourist"})
                             .then(() => {
                               navigate("/");
                             })

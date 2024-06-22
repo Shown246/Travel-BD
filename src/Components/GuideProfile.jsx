@@ -13,7 +13,7 @@ const GuideProfile = () => {
   const [isSaveEnabled, setIsSaveEnabled] = useState(false);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/guide/profile?email=${user.email}`)
+      .get(`https://ph-assignment12-server.vercel.app/guide/profile?email=${user.email}`)
       .then((res) => {
         const data = res.data;
         setEduData(data.eduData);
@@ -42,7 +42,7 @@ const GuideProfile = () => {
     };
     console.log(updatedData);
     axios
-      .post("http://localhost:5000/guide/profile", updatedData, {
+      .post("https://ph-assignment12-server.vercel.app/guide/profile", updatedData, {
         withCredentials: true,
       })
       .then(() => {

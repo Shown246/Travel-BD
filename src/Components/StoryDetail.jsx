@@ -14,7 +14,7 @@ const StoryDetail = () => {
   const { user } = useContext(AuthContext);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/story/${id}`)
+      .get(`https://ph-assignment12-server.vercel.app/story/${id}`)
       .then((response) => {
         setStory(response.data);
       })

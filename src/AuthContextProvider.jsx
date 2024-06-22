@@ -119,19 +119,19 @@ const AuthContextProvider = ({ children }) => {
       if (currentUser) {
         try {
           const email = currentUser.email;
-          const roleResponse = await axios.get(`http://localhost:5000/userRole?email=${email}`);
+          const roleResponse = await axios.get(`https://ph-assignment12-server.vercel.app/userRole?email=${email}`);
           const role = roleResponse.data;
           
           const updatedUser = { ...currentUser, role };
           setUser(updatedUser);
           localStorage.setItem('user', JSON.stringify(updatedUser));
           
-          await axios.post("http://localhost:5000/jwt", loggedUser, { withCredentials: true });
+          await axios.post("https://ph-assignment12-server.vercel.app/jwt", loggedUser, { withCredentials: true });
         } catch (error) {
           console.error('Error during authentication state change:', error);
         }
       } else {
-        axios.post("http://localhost:5000/logout", loggedUser, { withCredentials: true });
+        axios.post("https://ph-assignment12-server.vercel.app/logout", loggedUser, { withCredentials: true });
         setUser(null);
         localStorage.removeItem('user');
       }

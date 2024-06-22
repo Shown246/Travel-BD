@@ -9,7 +9,7 @@ const AssignedTours = () => {
   const [refetch, setRefetch] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/assignedTours",
+      .get("https://ph-assignment12-server.vercel.app/assignedTours",
       { withCredentials: true }
       )
       .then((res) => {
@@ -30,7 +30,7 @@ const AssignedTours = () => {
     })
     .then((willReject) => {
       if (willReject) {
-        axios.patch(`http://localhost:5000/rejectBooking/${id}`,{}, { withCredentials: true })
+        axios.patch(`https://ph-assignment12-server.vercel.app/rejectBooking/${id}`,{}, { withCredentials: true })
         .then(() => {
           swal("Booking has been rejected!", {
             icon: "info",
@@ -50,7 +50,7 @@ const AssignedTours = () => {
   };
 
   const handleAccept = (id) => {
-    axios.patch(`http://localhost:5000/acceptBooking/${id}`,{}, { withCredentials: true })
+    axios.patch(`https://ph-assignment12-server.vercel.app/acceptBooking/${id}`,{}, { withCredentials: true })
     .then(() => {
       swal({
         title: "Accepted!",

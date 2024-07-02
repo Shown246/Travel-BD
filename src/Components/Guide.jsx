@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import PackageCard from "./PackageCard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import MeetGuides from "./MeetGuides";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,7 +59,7 @@ export default function BasicTabs() {
   };
 
   return (
-    <>
+    <div className="mt-10">
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
@@ -102,9 +103,9 @@ export default function BasicTabs() {
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          Item Three
+          <MeetGuides />
         </CustomTabPanel>
       </Box>
-    </>
+    </div>
   );
 }

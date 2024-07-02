@@ -20,6 +20,7 @@ import Confetti from "react-confetti";
 import {useWindowSize} from 'react-use';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import PackageGallery from "./PackageGallery";
 
 const style = {
   position: 'absolute',
@@ -125,7 +126,7 @@ const PackageDetail = () => {
   return (
     <>
     <div className="container90 mt-16">
-      {/* <SimpleGallery images={packageData.images || []} /> */}
+      <PackageGallery images={packageData.images} />
       <div className="mt-8">
         <h1 className="text-3xl font-semibold">{packageData.name}</h1>
         <p className="mt-4 text-lg">{packageData.description}</p>
@@ -253,8 +254,8 @@ const Guide = ({ guide }) => {
       }}
       className="mt-4 flex gap-8 cursor-pointer"
     >
-      <h2>{guide.name}</h2>
-      <p>{guide.phnData}</p>
+      <h2><span className="font-medium">Name: </span>{guide.name}</h2>
+      <p><span className="font-medium">Contact No: </span>{guide.phnData}</p>
     </div>
   );
 };

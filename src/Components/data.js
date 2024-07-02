@@ -66,17 +66,10 @@ function convertToObjects(arr, height) {
   return arr.map(url => ({ css: url, height: height }));
 }
 
-// Async function to handle the entire process and export the result
 export const getRandomImages = async () => {
   b = await fetchData();
   a = rand(b, 6);
   const convertedImages = convertToObjects(a, 500);
   return convertedImages;
 }
-
-// // Execute and export the result
-// const data = await getRandomImages();
-
-// export default data;
-
 export default getRandomImages;

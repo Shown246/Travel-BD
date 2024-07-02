@@ -68,8 +68,10 @@ const SignUp = () => {
                     GoogleSignUp()
                       .then((user) => {
                         if (user !== null) {
+                          const newUser = { name: user.displayName, photoURL: user.photoURL, role: "Tourist", email :
+                           user.email};
                           axios
-                            .post("https://ph-assignment12-server.vercel.app/users", {role: "Tourist"})
+                            .post("https://ph-assignment12-server.vercel.app/users", newUser)
                             .then(() => {
                               navigate("/");
                             })

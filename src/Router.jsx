@@ -26,6 +26,7 @@ import AboutUs from "./Components/AboutUs";
 import Contact from "./Components/Contact";
 import PackageTypes from "./Components/PackageTypes";
 import StoryDetail from "./Components/StoryDetail";
+import AllStories from "./Components/AllStories";
 
 const Router = () => {
   const { user } = useContext(AuthContext);
@@ -137,6 +138,10 @@ const Router = () => {
         {
           path: "/story/:id",
           element: <StoryDetail />,
+        },
+        {
+          path: '/all-stories',
+          element: <AllStories />,
         }
       ],
     },

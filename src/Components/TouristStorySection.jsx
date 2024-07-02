@@ -10,6 +10,9 @@ const TouristStorySection = () => {
       .get('https://ph-assignment12-server.vercel.app/stories')
       .then((response) => {
         setStories(response.data);
+        if (response.data.length > 4) {
+          setStories(response.data.slice(0, 4));
+        }
       })
       .catch((error) => {
         console.log(error);
